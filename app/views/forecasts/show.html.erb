@@ -1,0 +1,46 @@
+<h1>
+  <%= @forecast.city %>, <%= @forecast.state %>
+  <% if @forecast.cached %>
+    <span class="cached-badge">(CACHED!)</span>
+  <% end %>
+</h1>
+
+<p>Zip code: <strong><%= @forecast.zip_code %></strong></p>
+<p>Searched: "<%= @address %>"</p>
+
+<h2>Current Conditions</h2>
+
+<div><%= @forecast.current_temp %>&deg;F</div>
+
+<dl>
+  <dt>Today's High</dt>
+  <dd><%= @forecast.high %>F</dd>
+
+  <dt>Today's Low</dt>
+  <dd><%= @forecast.low %>F</dd>
+</dl>
+
+<h2>7-Day Forecast</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Condition</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @forecast.extended_forecast.each do |day| %>
+      <tr>
+        <td><%= Date.parse(day[:date]).strftime("%a, %b %-d") %></td>
+        <td><%= day[:high] %>F</td>
+        <td><%= day[:low] %>F</td>
+        <td><%= day[:condition] %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<a href="<%= root_path %>"> Search another address</a>

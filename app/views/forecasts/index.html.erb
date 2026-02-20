@@ -1,0 +1,12 @@
+<% if flash[:alert] %>
+  <p><%= flash[:alert] %></p>
+<% end %>
+
+<h1>Weather Forecast</h1>
+
+<%= form_with url: show_forecasts_path, method: :get, local: true do |f| %>
+  <%= f.text_field :address,
+      placeholder: "Enter an address (e.g., 1600 Amphitheatre Parkway, Mountain View, CA)",
+      value: params[:address] %>
+  <%= f.submit "Get Forecast" %>
+<% end %>
