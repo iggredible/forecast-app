@@ -1,5 +1,4 @@
 # Use google first. Nominatim can get temperamental and block you.
-#
 config = {
   user_agent: "weather-forecast-app",
   timeout: 5,

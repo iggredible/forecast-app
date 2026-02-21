@@ -3,10 +3,10 @@ require "test_helper"
 class ForecastServiceTest < ActiveSupport::TestCase
   setup do
     @location = Geocode.new(
-      zip_code: "94043",
-      latitude: 37.4220,
-      longitude: -122.0841,
-      city: "Mountain View",
+      zip_code: "95014",
+      latitude: 37.3349,
+      longitude: -122.0090,
+      city: "Cupertino",
       state: "California"
     )
 
@@ -28,15 +28,15 @@ class ForecastServiceTest < ActiveSupport::TestCase
   test "returns a current day forecast" do
     service = build_service
 
-    forecast = service.call("1600 Amphitheatre Parkway, Mountain View, CA")
+    forecast = service.call("One Apple Park Way, Cupertino, CA 95014, U.S.A.")
 
     assert_instance_of Forecast, forecast
     assert_equal 99.9, forecast.current_temp
     assert_equal 110.0, forecast.high
     assert_equal 32.0, forecast.low
-    assert_equal "Mountain View", forecast.city
+    assert_equal "Cupertino", forecast.city
     assert_equal "California", forecast.state
-    assert_equal "94043", forecast.zip_code
+    assert_equal "95014", forecast.zip_code
     assert_equal false, forecast.cached
   end
 
@@ -74,7 +74,7 @@ class ForecastServiceTest < ActiveSupport::TestCase
 
     service.call("Mountain View, CA")
 
-    cached = @cache.read("forecast/94043")
+    cached = @cache.read("forecast/95014")
     assert_equal @weather_data, cached
   end
 

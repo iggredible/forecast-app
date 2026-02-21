@@ -10,18 +10,18 @@ class GeocodingClientTest < ActiveSupport::TestCase
 
   test "returns a Geocode with correct attributes for a valid address" do
     Geocoder::Lookup::Test.add_stub(
-      "1600 Amphitheatre Parkway, Mountain View, CA", [
-        { postal_code: "94043", latitude: 12.3456, longitude: -12.3456, city: "Mountain View", state: "California" }
+      "One Apple Park Way, Cupertino, CA 95014, U.S.A.", [
+        { postal_code: "95014", latitude: 12.3456, longitude: -12.3456, city: "Cupertino", state: "California" }
       ]
     )
 
-    geocode = @client.call("1600 Amphitheatre Parkway, Mountain View, CA")
+    geocode = @client.call("One Apple Park Way, Cupertino, CA 95014, U.S.A.")
 
     assert_instance_of Geocode, geocode
-    assert_equal "94043", geocode.zip_code
+    assert_equal "95014", geocode.zip_code
     assert_equal 12.3456, geocode.latitude
     assert_equal(-12.3456, geocode.longitude)
-    assert_equal "Mountain View", geocode.city
+    assert_equal "Cupertino", geocode.city
     assert_equal "California", geocode.state
   end
 
